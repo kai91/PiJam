@@ -4,11 +4,11 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 
     public GameObject timer;
-    public bool start;
+    private float roundTime = 3;
 
 	// Use this for initialization
 	void Start () {
-        start = false;
+        timer.GetComponent<Countdown>().startTimer(roundTime);
 	}
 	
 	// Update is called once per frame

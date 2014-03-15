@@ -5,7 +5,7 @@ using System.Collections;
 public class ScaleFont : MonoBehaviour
 {
     public Vector2 offset;
-    public float ratio = 10;
+    private float ratio = 10;
 
     void OnGUI()
     {
