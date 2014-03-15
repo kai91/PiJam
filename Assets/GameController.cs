@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
-    public GameObject timer;
+    public GameObject timer, pie;
     private float roundTime = 3;
 
 	// Use this for initialization
