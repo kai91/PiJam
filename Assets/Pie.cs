@@ -145,12 +145,17 @@ public class Pie : MonoBehaviour {
 
     public void clearIngredient()
     {
-        apple = blueberry = cherry = 0;
+        
         for (int i = 0; i < toppings.Count; i++)
         {
             Destroy(toppings[i].gameObject);
         }
         toppings.Clear();
+    }
+
+    private void resetIngredient()
+    {
+        apple = blueberry = cherry = 0;
     }
 
     void Update()
@@ -172,7 +177,11 @@ public class Pie : MonoBehaviour {
     public void Retry()
     {
         coveredPie.GetComponent<BakingPie>().hidePie();
+        resetIngredient();
         this.renderer.enabled = true;
+        appleResult.GetComponent<ResultScript>().hideResult();
+        blueberryResult.GetComponent<ResultScript>().hideResult();
+        cherryResult.GetComponent<ResultScript>().hideResult();
     }
 
     public void clicked()

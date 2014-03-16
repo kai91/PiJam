@@ -63,6 +63,7 @@ public class GameController : MonoBehaviour {
     {
         isBaking = false;
         doneBaking = true;
+        pie.GetComponent<Pie>().doneBaking();
     }
 
     public void GameOver()
