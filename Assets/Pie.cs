@@ -10,7 +10,7 @@ public class Pie : MonoBehaviour {
     private List<KeyValuePair<int, int>> list;
     public Transform applePrefab, blueberryPrefab, cherryPrefab;
     private bool shrink;
-    public GameObject coveredPie;
+    public GameObject coveredPie, shine;
     public GameObject appleResult, blueberryResult, cherryResult;
 
 
@@ -33,6 +33,7 @@ public class Pie : MonoBehaviour {
     {
         renderer.enabled = true;
         apple = blueberry = cherry = 0;
+        shine.renderer.enabled = false;
         list = new List<KeyValuePair<int, int>>();
         KeyValuePair<int, int> range = Utility.getRange(difficulty);
         list.Add(range);
@@ -171,6 +172,7 @@ public class Pie : MonoBehaviour {
     {
         clearIngredient();
         this.renderer.enabled = false;
+        shine.renderer.enabled = true;
         coveredPie.GetComponent<BakingPie>().showPie();
     }
 
@@ -178,6 +180,7 @@ public class Pie : MonoBehaviour {
     {
         coveredPie.GetComponent<BakingPie>().hidePie();
         resetIngredient();
+        shine.renderer.enabled = false;
         this.renderer.enabled = true;
         appleResult.GetComponent<ResultScript>().hideResult();
         blueberryResult.GetComponent<ResultScript>().hideResult();
