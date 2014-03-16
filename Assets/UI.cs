@@ -12,10 +12,11 @@ namespace Assets
         private const float ButtonHeightPercentage = 0.075f;
         private readonly Vector2 ClearButtonPosPercentage = new Vector2(0.1f, 0.9f);
         private readonly Vector2 BakeButtonPosPercentage = new Vector2(0.55f, 0.9f);
-        private readonly Vector2 RetryButtonPosPercentage = new Vector2(0.55f, 0.5f);   // beside the emoticon and under the message that is beside the emoticon
+        private readonly Vector2 RetryButtonPosPercentage = new Vector2(0.55f, 0.4f);   // beside the emoticon and under the message that is beside the emoticon
         private Texture2D clearButtonTexture;
         private Texture2D bakeButtonTexture;
         private Texture2D retryButtonTexture;
+        private Texture2D keepTryingButtonTexture;
         private GameController gameController;
 
         void Start()
@@ -23,6 +24,7 @@ namespace Assets
             bakeButtonTexture = (Texture2D)Resources.Load("BakeButtonTexture");
             clearButtonTexture = (Texture2D)Resources.Load("ClearButtonTexture");
             retryButtonTexture = (Texture2D)Resources.Load("RetryButtonTexture");
+            keepTryingButtonTexture = (Texture2D)Resources.Load("KeepTryingButtonTexture");
 
             gameController = GameObject.FindObjectOfType<GameController>().GetComponent<GameController>();
         }
@@ -39,19 +41,18 @@ namespace Assets
             {
                 if (GUI.Button(new Rect(clearButtonPos.x, clearButtonPos.y, buttonWidth, buttonHeight), clearButtonTexture))
                 {
-                    Debug.Log("Clear button clicked");
+                    //Debug.Log("Clear button clicked");
                     gameController.ClearPie();
                 }
 
                 if (GUI.Button(new Rect(bakeButtonPos.x, bakeButtonPos.y, buttonWidth, buttonHeight), bakeButtonTexture))
                 {
-                    Debug.Log("Bake button clicked");
-                    gameController.isBaking = true;
-                    GameObject.FindObjectOfType<Pie>().GetComponent<Pie>().startBaking();
+                    //Debug.Log("Bake button clicked");
+                    gameController.BakePie();
                 }
             }
 
-            if (gameController.doneBaking)
+            if (gameController.doneBaking || gameController.isGameOver)
             {
                 // Spawn emoticon and message here
 
@@ -60,11 +61,15 @@ namespace Assets
                     if (GUI.Button(new Rect(retryButtonPos.x, retryButtonPos.y, buttonWidth, buttonHeight), retryButtonTexture))
                     {
                         Debug.Log("Retry button clicked");
-                        gameController.isBaking = false;
-                        gameController.doneBaking = false;
-                        gameController.isGameOver = false;
-
-                        // put logic to restart
+                        gameController.Retry();
+                    }
+                }
+                else
+                {
+                    if (GUI.Button(new Rect(retryButtonPos.x, retryButtonPos.y, buttonWidth, buttonHeight), keepTryingButtonTexture))
+                    {
+                        Debug.Log("Keep trying button clicked");
+                        gameController.KeepTrying();
                     }
                 }
             }

@@ -34,18 +34,24 @@ public class Countdown : MonoBehaviour {
         this.timeoutTime = time;
         start = true;
     }
+
+    public void Reset()
+    {
+        currentTime = 0;
+    }
 	
 	// Update is called once per frame
 	void Update () 
     {
         if (start == false) return;
+
         float delta = Time.deltaTime;
         currentTime += delta;
         int print = (int)(currentTime / timeoutTime * charCount);
         if (print >= charCount)
         {
             //this.guiText.text = "Game Over!";
-            gameController.isGameOver = true;
+            gameController.GameOver();
 
             return;
         }

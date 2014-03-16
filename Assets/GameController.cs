@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets;
 
 public class GameController : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class GameController : MonoBehaviour {
     public bool isGameOver; // Would be better to enum for game states if we have time
     public bool isBaking;
     public bool doneBaking;
+    private ProgressBar progressBar;
 
 	// Use this for initialization
 	void Start () 
@@ -16,6 +18,8 @@ public class GameController : MonoBehaviour {
         isBaking = false;
         doneBaking = false;
         timer.GetComponent<Countdown>().startTimer(roundTime);
+
+        progressBar = GameObject.FindObjectOfType<Assets.ProgressBar>().GetComponent<Assets.ProgressBar>();
     }
 	
 	// Update is called once per frame
@@ -24,9 +28,46 @@ public class GameController : MonoBehaviour {
         
 	}
 
+    public void BakePie()
+    {
+        isBaking = true;
+        pie.GetComponent<Pie>().startBaking();
+    }
+
     public void ClearPie()
     {
         pie.GetComponent<Pie>().clearIngredient();
+    }
+
+    public void KeepTrying()
+    {
+        isBaking = false;
+        doneBaking = false;
+
+        pie.GetComponent<Pie>().Retry();
+        progressBar.Reset();
+    }
+
+    public void Retry()
+    {
+        isBaking = false;
+        doneBaking = false;
+        isGameOver = false;
+
+        pie.GetComponent<Pie>().Retry();
+        progressBar.Reset();
+        timer.GetComponent<Countdown>().Reset();
+    }
+
+    public void DoneBaking()
+    {
+        isBaking = false;
+        doneBaking = true;
+    }
+
+    public void GameOver()
+    {
+        isGameOver = true;
     }
 
     public void startTimer()

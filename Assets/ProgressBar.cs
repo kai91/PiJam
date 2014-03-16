@@ -8,6 +8,8 @@ namespace Assets
 {
     public class ProgressBar : MonoBehaviour
     {
+        private const float DefaultPassiveSpeed = 0.01f;
+        private const float DefaultActiveSpeed = 0.005f;
         private float passiveSpeed;
         private float activeSpeed;
         public float progressPercentage;
@@ -41,10 +43,18 @@ namespace Assets
         // Use this for initialization
         void Start()
         {
-            passiveSpeed = 0.01f;
-            activeSpeed = 0.005f;
+            passiveSpeed = DefaultPassiveSpeed;
+            activeSpeed = DefaultActiveSpeed;
+            progressPercentage = 0;
 
             gameController = GameObject.FindObjectOfType<GameController>().GetComponent<GameController>();
+        }
+
+        public void Reset()
+        {
+            passiveSpeed = DefaultPassiveSpeed;
+            activeSpeed = DefaultActiveSpeed;
+            progressPercentage = 0;
         }
 
         public void incrementPassiveSpeed()
@@ -65,14 +75,13 @@ namespace Assets
         // Update is called once per frame
         void Update()
         {
-            if (!gameController.isBaking) return;
+            if (!gameController.isBaking || gameController.isGameOver) return;
 
             progressPercentage += Time.deltaTime * passiveSpeed;
             if (progressPercentage >= 1)
             {
-                Debug.Log("Baking done");
-                gameController.isBaking = false;
-                gameController.doneBaking = true;
+                //Debug.Log("Baking done");
+                gameController.DoneBaking();
             }
         }
     }

@@ -159,6 +159,12 @@ public class Pie : MonoBehaviour {
         coveredPie.GetComponent<BakingPie>().showPie();
     }
 
+    public void Retry()
+    {
+        coveredPie.GetComponent<BakingPie>().hidePie();
+        this.renderer.enabled = true;
+    }
+
     public void clicked()
     {
         coveredPie.GetComponent<BakingPie>().clicked();
