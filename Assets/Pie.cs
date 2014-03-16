@@ -33,8 +33,12 @@ public class Pie : MonoBehaviour {
         range = Utility.getRange(difficulty);
         list.Add(range);
         shrink = false;
-        Vector2 s = mainCamera.ScreenToWorldPoint(new Vector2(250, 250));
         toppings = new List<Transform>();
+
+        Debug.Log("apple" + list[0].Key + " " + list[0].Value);
+        Debug.Log("blueberry" + list[1].Key + " " + list[1].Value);
+        Debug.Log("cherry" + list[2].Key + " " + list[2].Value);
+
     }
 
 	public void add(IngredientEnum ingredient) {
@@ -88,6 +92,7 @@ public class Pie : MonoBehaviour {
         else
         {
             // right amount of apple
+            Debug.Log("apple correct");
         }
 
         // Check blueberry
@@ -102,6 +107,7 @@ public class Pie : MonoBehaviour {
         else
         {
             // right amount of blueberry
+            Debug.Log("blueberry correct");
         }
 
         // Check cherry
@@ -116,6 +122,7 @@ public class Pie : MonoBehaviour {
         else
         {
             // right amount of cherry
+            Debug.Log("cherry correct");
         }
     }
 
