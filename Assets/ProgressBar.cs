@@ -15,6 +15,7 @@ namespace Assets
         public Vector2 sizePercentage;
         public Texture2D emptyTexture;
         public Texture2D fullTexture;
+        private GameController gameController;
 
         private float posX, posY, width, height;
 
@@ -42,6 +43,8 @@ namespace Assets
         {
             passiveSpeed = 0.01f;
             activeSpeed = 0.005f;
+
+            gameController = GameObject.FindObjectOfType<GameController>().GetComponent<GameController>();
         }
 
         public void incrementPassiveSpeed()
@@ -56,20 +59,20 @@ namespace Assets
 
         public void click()
         {
-            if (!GameObject.FindObjectOfType<GameController>().GetComponent<GameController>().isBaking)
-                return;
             progressPercentage += activeSpeed;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (!GameObject.FindObjectOfType<GameController>().GetComponent<GameController>().isBaking)
-                return;
+            if (!gameController.isBaking) return;
+
             progressPercentage += Time.deltaTime * passiveSpeed;
             if (progressPercentage >= 1)
             {
                 Debug.Log("Baking done");
+                gameController.isBaking = false;
+                gameController.doneBaking = true;
             }
         }
     }

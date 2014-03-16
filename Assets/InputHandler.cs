@@ -7,17 +7,21 @@ public class InputHandler : MonoBehaviour
     private GameObject[] ingredients;
     private Pie pie;    // use covered pie later
     private ProgressBar progressBar;
+    private GameController gameController;
 
     void Start()
     {
         ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         pie = GameObject.FindObjectOfType<Pie>().GetComponent<Pie>();
         progressBar = GameObject.FindObjectOfType<ProgressBar>().GetComponent<ProgressBar>();
+        gameController = GameObject.FindObjectOfType<GameController>().GetComponent<GameController>();
     }
 
     // This function is soooo nested...
     void Update()
     {
+        if (gameController.isGameOver) return;
+
         foreach (var touch in Input.touches)
         {
             if (touch.phase == TouchPhase.Began)
@@ -25,29 +29,35 @@ public class InputHandler : MonoBehaviour
                 Vector3 touchPosition3 = Camera.main.ScreenToWorldPoint(touch.position);
                 Vector2 touchPosition2 = new Vector2(touchPosition3.x, touchPosition3.y);
 
-                foreach (var ingredient in ingredients)
+                if (!gameController.isBaking && !gameController.doneBaking)
                 {
-                    if (Physics2D.OverlapPoint(touchPosition2) == ingredient.collider2D)
+                    foreach (var ingredient in ingredients)
                     {
-                        ingredient.GetComponent<ZoomClick>().clicked();
-                        foreach (var ingredientEnumValue in (IngredientEnum[])System.Enum.GetValues(typeof(IngredientEnum)))
+                        if (Physics2D.OverlapPoint(touchPosition2) == ingredient.collider2D)
                         {
-                            var ingredientName = ingredientEnumValue.ToString();
-                            if (ingredient.name == ingredientName)
+                            ingredient.GetComponent<ZoomClick>().clicked();
+                            foreach (var ingredientEnumValue in (IngredientEnum[])System.Enum.GetValues(typeof(IngredientEnum)))
                             {
-                                //Debug.Log(ingredientName);
-                                pie.add(ingredientEnumValue);
-                                
+                                var ingredientName = ingredientEnumValue.ToString();
+                                if (ingredient.name == ingredientName)
+                                {
+                                    //Debug.Log(ingredientName);
+                                    pie.add(ingredientEnumValue);
+
+                                }
                             }
                         }
                     }
                 }
 
-                if (Physics2D.OverlapPoint(touchPosition2) == pie.collider2D)
+                if (gameController.isBaking && !gameController.doneBaking)
                 {
-                    Debug.Log("Pie is clicked.");
-                    pie.GetComponent<Pie>().clicked();
-                    progressBar.click();
+                    if (Physics2D.OverlapPoint(touchPosition2) == pie.collider2D)
+                    {
+                        Debug.Log("Pie is clicked.");
+                        pie.GetComponent<Pie>().clicked();
+                        progressBar.click();
+                    }
                 }
             }
         }

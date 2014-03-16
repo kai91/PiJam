@@ -35,27 +35,37 @@ namespace Assets
             Vector2 bakeButtonPos = new Vector2(BakeButtonPosPercentage.x * Screen.width, BakeButtonPosPercentage.y * Screen.height);
             Vector2 retryButtonPos = new Vector2(RetryButtonPosPercentage.x * Screen.width, RetryButtonPosPercentage.y * Screen.height);
 
-            if (GUI.Button(new Rect(clearButtonPos.x, clearButtonPos.y, buttonWidth, buttonHeight), clearButtonTexture))
+            if (!gameController.isBaking && !gameController.doneBaking && !gameController.isGameOver)
             {
-                Debug.Log("Clear button clicked");
-                gameController.ClearPie();
+                if (GUI.Button(new Rect(clearButtonPos.x, clearButtonPos.y, buttonWidth, buttonHeight), clearButtonTexture))
+                {
+                    Debug.Log("Clear button clicked");
+                    gameController.ClearPie();
+                }
+
+                if (GUI.Button(new Rect(bakeButtonPos.x, bakeButtonPos.y, buttonWidth, buttonHeight), bakeButtonTexture))
+                {
+                    Debug.Log("Bake button clicked");
+                    gameController.isBaking = true;
+                    GameObject.FindObjectOfType<Pie>().GetComponent<Pie>().startBaking();
+                }
             }
 
-            if (GUI.Button(new Rect(bakeButtonPos.x, bakeButtonPos.y, buttonWidth, buttonHeight), bakeButtonTexture))
-            {
-                Debug.Log("Bake button clicked");
-                gameController.isBaking = true;
-                GameObject.FindObjectOfType<Pie>().GetComponent<Pie>().startBaking();
- 
-            }
-
-            if (gameController.isGameOver)
+            if (gameController.doneBaking)
             {
                 // Spawn emoticon and message here
 
-                if (GUI.Button(new Rect(retryButtonPos.x, retryButtonPos.y, buttonWidth, buttonHeight), retryButtonTexture))
+                if (gameController.isGameOver)
                 {
-                    Debug.Log("Retry button clicked");
+                    if (GUI.Button(new Rect(retryButtonPos.x, retryButtonPos.y, buttonWidth, buttonHeight), retryButtonTexture))
+                    {
+                        Debug.Log("Retry button clicked");
+                        gameController.isBaking = false;
+                        gameController.doneBaking = false;
+                        gameController.isGameOver = false;
+
+                        // put logic to restart
+                    }
                 }
             }
         }
