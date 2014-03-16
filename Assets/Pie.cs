@@ -11,6 +11,7 @@ public class Pie : MonoBehaviour {
     public Transform applePrefab, blueberryPrefab, cherryPrefab;
     private bool shrink;
     public GameObject coveredPie;
+    public GameObject appleResult, blueberryResult, cherryResult;
 
 
     private float minXRange = 120;
@@ -91,44 +92,53 @@ public class Pie : MonoBehaviour {
         if (apple > list[0].Value)
         {
             // too much apple
+            appleResult.GetComponent<ResultScript>().display(2);
         }
         else if (apple < list[0].Key)
         {
             // too little apple
+            appleResult.GetComponent<ResultScript>().display(1);
         }
         else
         {
             // right amount of apple
+            appleResult.GetComponent<ResultScript>().display(3);
             Debug.Log("apple correct");
         }
 
         // Check blueberry
         if (blueberry > list[1].Value)
         {
+            blueberryResult.GetComponent<ResultScript>().display(2);
             // too much blueberry
         }
         else if (blueberry < list[1].Key)
         {
             // too little blueberry
+            blueberryResult.GetComponent<ResultScript>().display(1);
         }
         else
         {
             // right amount of blueberry
+            blueberryResult.GetComponent<ResultScript>().display(3);
             Debug.Log("blueberry correct");
         }
 
         // Check cherry
         if (cherry > list[2].Value)
         {
-            // too much apple
+            // too much cherry
+            cherryResult.GetComponent<ResultScript>().display(2);
         }
         else if (cherry < list[2].Key)
         {
             // too little cherry
+            cherryResult.GetComponent<ResultScript>().display(1);
         }
         else
         {
             // right amount of cherry
+            cherryResult.GetComponent<ResultScript>().display(3);
             Debug.Log("cherry correct");
         }
     }
