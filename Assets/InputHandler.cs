@@ -26,6 +26,7 @@ public class InputHandler : MonoBehaviour
                 {
                     if (Physics2D.OverlapPoint(touchPosition2) == ingredient.collider2D)
                     {
+                        ingredient.GetComponent<ZoomClick>().clicked();
                         foreach (var ingredientEnumValue in (IngredientEnum[])System.Enum.GetValues(typeof(IngredientEnum)))
                         {
                             var ingredientName = ingredientEnumValue.ToString();
@@ -33,6 +34,7 @@ public class InputHandler : MonoBehaviour
                             {
                                 //Debug.Log(ingredientName);
                                 pie.add(ingredientEnumValue);
+                                
                             }
                         }
                     }
