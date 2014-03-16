@@ -8,18 +8,22 @@ namespace Assets
 {
     public class ProgressBar : MonoBehaviour
     {
+        private float passiveSpeed;
+        private float activeSpeed;
         public float progressPercentage;
         public Vector2 posPercentage;
         public Vector2 sizePercentage;
         public Texture2D emptyTexture;
         public Texture2D fullTexture;
 
+        private float posX, posY, width, height;
+
         void OnGUI()
         {
-            float posX = Screen.width * posPercentage.x;
-            float posY = Screen.height * posPercentage.y;
-            float width = Screen.width * sizePercentage.x;
-            float height = Screen.height * sizePercentage.y;
+            posX = Screen.width * posPercentage.x;
+            posY = Screen.height * posPercentage.y;
+            width = Screen.width * sizePercentage.x;
+            height = Screen.height * sizePercentage.y;
 
             //draw the background:
             GUI.BeginGroup(new Rect(posX, posY, width, height));
@@ -36,11 +40,33 @@ namespace Assets
         // Use this for initialization
         void Start()
         {
+            passiveSpeed = 0.01f;
+            activeSpeed = 0.05f;
+        }
+
+        public void incrementPassiveSpeed()
+        {
+            passiveSpeed += 0.005f;
+        }
+
+        public void incremnetActiveSpeed()
+        {
+            activeSpeed += 0.025f;
+        }
+
+        public void clicked()
+        {
+            progressPercentage += Time.deltaTime * activeSpeed;
         }
 
         // Update is called once per frame
         void Update()
         {
+            progressPercentage += Time.deltaTime * passiveSpeed;
+            if (progressPercentage > 1)
+            {
+                Debug.Log("Baking done");
+            }
         }
     }
 }
