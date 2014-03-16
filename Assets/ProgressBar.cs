@@ -41,12 +41,12 @@ namespace Assets
         void Start()
         {
             passiveSpeed = 0.01f;
-            activeSpeed = 0.05f;
+            activeSpeed = 0.005f;
         }
 
         public void incrementPassiveSpeed()
         {
-            passiveSpeed += 0.005f;
+            passiveSpeed += 0.01f;
         }
 
         public void incremnetActiveSpeed()
@@ -54,16 +54,16 @@ namespace Assets
             activeSpeed += 0.025f;
         }
 
-        public void clicked()
+        public void click()
         {
-            progressPercentage += Time.deltaTime * activeSpeed;
+            progressPercentage += activeSpeed;
         }
 
         // Update is called once per frame
         void Update()
         {
             progressPercentage += Time.deltaTime * passiveSpeed;
-            if (progressPercentage > 1)
+            if (progressPercentage >= 1)
             {
                 Debug.Log("Baking done");
             }
