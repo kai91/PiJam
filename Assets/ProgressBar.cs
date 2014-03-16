@@ -56,12 +56,16 @@ namespace Assets
 
         public void click()
         {
+            if (!GameObject.FindObjectOfType<GameController>().GetComponent<GameController>().isBaking)
+                return;
             progressPercentage += activeSpeed;
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (!GameObject.FindObjectOfType<GameController>().GetComponent<GameController>().isBaking)
+                return;
             progressPercentage += Time.deltaTime * passiveSpeed;
             if (progressPercentage >= 1)
             {

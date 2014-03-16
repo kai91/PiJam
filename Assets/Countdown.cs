@@ -44,7 +44,7 @@ public class Countdown : MonoBehaviour {
         int print = (int)(currentTime / timeoutTime * charCount);
         if (print >= charCount)
         {
-            this.guiText.text = "Game Over!";
+            //this.guiText.text = "Game Over!";
             gameController.isGameOver = true;
 
             return;

@@ -10,6 +10,7 @@ public class Pie : MonoBehaviour {
     private List<KeyValuePair<int, int>> list;
     public Transform applePrefab, blueberryPrefab, cherryPrefab;
     private bool shrink;
+    public GameObject coveredPie;
 
 
     private float minXRange = 120;
@@ -29,6 +30,7 @@ public class Pie : MonoBehaviour {
 
     public void initialize(bool difficulty)
     {
+        renderer.enabled = true;
         apple = blueberry = cherry = 0;
         list = new List<KeyValuePair<int, int>>();
         KeyValuePair<int, int> range = Utility.getRange(difficulty);
@@ -149,5 +151,16 @@ public class Pie : MonoBehaviour {
             Vector3 target = new Vector3(0.8f, 0.8f, 1);
             transform.localScale = Vector3.Lerp(transform.localScale, target, Time.deltaTime * 5);
         }
+    }
+    public void startBaking()
+    {
+        clearIngredient();
+        this.renderer.enabled = false;
+        coveredPie.GetComponent<BakingPie>().showPie();
+    }
+
+    public void clicked()
+    {
+        coveredPie.GetComponent<BakingPie>().clicked();
     }
 }

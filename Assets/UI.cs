@@ -44,6 +44,9 @@ namespace Assets
             if (GUI.Button(new Rect(bakeButtonPos.x, bakeButtonPos.y, buttonWidth, buttonHeight), bakeButtonTexture))
             {
                 Debug.Log("Bake button clicked");
+                gameController.isBaking = true;
+                GameObject.FindObjectOfType<Pie>().GetComponent<Pie>().startBaking();
+ 
             }
 
             if (gameController.isGameOver)

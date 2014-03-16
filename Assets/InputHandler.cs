@@ -46,6 +46,7 @@ public class InputHandler : MonoBehaviour
                 if (Physics2D.OverlapPoint(touchPosition2) == pie.collider2D)
                 {
                     Debug.Log("Pie is clicked.");
+                    pie.GetComponent<Pie>().clicked();
                     progressBar.click();
                 }
             }
