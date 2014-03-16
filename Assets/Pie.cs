@@ -7,7 +7,7 @@ public class Pie : MonoBehaviour {
 
     private int apple, blueberry, cherry;
     private List<KeyValuePair<int, int>> list;
-    
+    private bool shrink;
 
 	// Use this for initialization
 	void Start ()
@@ -25,6 +25,7 @@ public class Pie : MonoBehaviour {
         list.Add(range);
         range = Utility.getRange(difficulty);
         list.Add(range);
+        shrink = false;
     }
 
 	public void add(IngredientEnum ingredient) {
@@ -93,5 +94,15 @@ public class Pie : MonoBehaviour {
     public void clearIngredient()
     {
         apple = blueberry = cherry = 0;
+    }
+
+    void Update()
+    {
+
+        if (transform.localScale.x < 0.8)
+        {
+            Vector3 target = new Vector3(0.8f, 0.8f, 1);
+            transform.localScale = Vector3.Lerp(transform.localScale, target, Time.deltaTime * 5);
+        }
     }
 }

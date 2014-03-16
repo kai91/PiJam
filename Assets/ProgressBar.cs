@@ -63,7 +63,7 @@ namespace Assets
         void Update()
         {
             progressPercentage += Time.deltaTime * passiveSpeed;
-            if (progressPercentage > 100)
+            if (progressPercentage > 1)
             {
                 Debug.Log("Baking done");
             }
