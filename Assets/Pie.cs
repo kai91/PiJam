@@ -12,8 +12,8 @@ public class Pie : MonoBehaviour {
     private bool shrink;
 
 
-    private float minRange = 150;
-    private float maxRange = 250;
+    private float minRange = 120;
+    private float maxRange = 280;
     private List<Transform> toppings;
 
 	// Use this for initialization
@@ -60,13 +60,17 @@ public class Pie : MonoBehaviour {
     {
         float randomX = Random.Range(minRange, maxRange);
         float randomY = Random.Range(minRange, maxRange);
+        Vector2 pos = mainCamera.ScreenToWorldPoint(new Vector2(randomX, randomY));
         Transform source = null;
         if (type == IngredientEnum.Apple) source = applePrefab;
         else if (type == IngredientEnum.Blueberry) source = blueberryPrefab;
         else if (type == IngredientEnum.Cherry) source = cherryPrefab;
 
-        Transform topping = (Transform)Instantiate(source, new Vector2(randomX, randomY), Quaternion.identity);
-        topping.rotation = Random.rotation;
+        Transform topping = (Transform)Instantiate(source, pos, Quaternion.identity);
+        float angle = Random.Range(0, 360);
+        topping.Rotate(new Vector3(0, 0, angle));
+        float scale = Random.Range(0.5f, 0.9f);
+        topping.localScale = new Vector3 (scale, scale, scale);
         toppings.Add(topping);
     }
 
