@@ -3,14 +3,16 @@ using System.Collections;
 
 public class InputHandler : MonoBehaviour
 {
-    GameObject[] ingredients;
-    // Use this for initialization
+    private GameObject[] ingredients;
+    private Pie pie;
+
     void Start()
     {
         ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
+        pie = GameObject.FindObjectOfType<Pie>().GetComponent<Pie>();
     }
 
-    // Update is called once per frame
+    // This function is soooo nested...
     void Update()
     {
         foreach (var touch in Input.touches)
@@ -18,14 +20,21 @@ public class InputHandler : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 Vector3 touchPosition3 = Camera.main.ScreenToWorldPoint(touch.position);
-                //Debug.Log("Touch position: " + touch.position);
                 Vector2 touchPosition2 = new Vector2(touchPosition3.x, touchPosition3.y);
 
                 foreach (var ingredient in ingredients)
                 {
                     if (Physics2D.OverlapPoint(touchPosition2) == ingredient.collider2D)
                     {
-                        Debug.Log(ingredient.name);
+                        foreach (var ingredientEnumValue in (IngredientEnum[])System.Enum.GetValues(typeof(IngredientEnum)))
+                        {
+                            var ingredientName = ingredientEnumValue.ToString();
+                            if (ingredient.name == ingredientName)
+                            {
+                                //Debug.Log(ingredientName);
+                                pie.add(ingredientEnumValue);
+                            }
+                        }
                     }
                 }
             }
