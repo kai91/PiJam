@@ -12,16 +12,19 @@ public class Pie : MonoBehaviour {
     private bool shrink;
 
 
-    private float minRange = 120;
-    private float maxRange = 280;
+    private float minXRange = 120;
+    private float maxXRange = 280;
+    private float minYRange, maxYRange;
     private List<Transform> toppings;
 
 	// Use this for initialization
 	void Start ()
     {
         initialize(true);
-        minRange = Screen.width / 4f;
-        maxRange = Screen.height / 3f;
+        minYRange = Screen.height / 5f;
+        maxYRange = Screen.height / 2f;
+        minXRange = Screen.width / 4f;
+        maxXRange = Screen.width / 4f * 3f;
 	}
 
     public void initialize(bool difficulty)
@@ -64,8 +67,8 @@ public class Pie : MonoBehaviour {
 
     private void addTopping(IngredientEnum type)
     {
-        float randomX = Random.Range(minRange, maxRange);
-        float randomY = Random.Range(minRange, maxRange);
+        float randomX = Random.Range(minXRange, maxXRange);
+        float randomY = Random.Range(minYRange, maxYRange);
         Vector2 pos = mainCamera.ScreenToWorldPoint(new Vector2(randomX, randomY));
         Transform source = null;
         if (type == IngredientEnum.Apple) source = applePrefab;
