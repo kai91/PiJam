@@ -13,17 +13,21 @@ public class Countdown : MonoBehaviour {
         "117450284102701938521105559644622948954930381964428810975665933446128475648233" +
         "786783165271201909145648566923460348610454326648213393607260249141273724587006 ";
     private float timeoutTime, currentTime;
+    private GameController gameController;
     
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
         start = false;
         currentTime = 0;
         for (int i = 0; i + 16 < piValue.Length; i += 16)
         {
             piValue = piValue.Insert(i + 16, "\n");
         }
-	}
+
+        gameController = GameObject.FindObjectOfType<GameController>().GetComponent<GameController>();
+    }
 
     public void startTimer(float time)
     {
@@ -32,7 +36,8 @@ public class Countdown : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
         if (start == false) return;
         float delta = Time.deltaTime;
         currentTime += delta;
@@ -40,11 +45,11 @@ public class Countdown : MonoBehaviour {
         if (print >= charCount)
         {
             this.guiText.text = "Game Over!";
+            gameController.isGameOver = true;
+
             return;
         }
         string toPrint = piValue.Substring(0, print);
         this.guiText.text = toPrint;
-
-        
 	}
 }

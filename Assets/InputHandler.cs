@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets;
 
 public class InputHandler : MonoBehaviour
 {
     private GameObject[] ingredients;
-    private Pie pie;
+    private Pie pie;    // use covered pie later
+    private ProgressBar progressBar;
 
     void Start()
     {
         ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
         pie = GameObject.FindObjectOfType<Pie>().GetComponent<Pie>();
+        progressBar = GameObject.FindObjectOfType<ProgressBar>().GetComponent<ProgressBar>();
     }
 
     // This function is soooo nested...
@@ -36,6 +39,12 @@ public class InputHandler : MonoBehaviour
                             }
                         }
                     }
+                }
+
+                if (Physics2D.OverlapPoint(touchPosition2) == pie.collider2D)
+                {
+                    Debug.Log("Pie is clicked.");
+                    progressBar.click();
                 }
             }
         }
