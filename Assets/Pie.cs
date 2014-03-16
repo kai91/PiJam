@@ -126,6 +126,7 @@ public class Pie : MonoBehaviour {
         {
             Destroy(toppings[i].gameObject);
         }
+        toppings.Clear();
     }
 
     void Update()

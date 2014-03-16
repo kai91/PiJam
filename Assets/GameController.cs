@@ -12,11 +12,16 @@ public class GameController : MonoBehaviour {
     {
         isGameOver = false;
         timer.GetComponent<Countdown>().startTimer(roundTime);
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () 
     {
         
 	}
+
+    public void ClearPie()
+    {
+        pie.GetComponent<Pie>().clearIngredient();
+    }
 }

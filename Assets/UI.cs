@@ -38,6 +38,7 @@ namespace Assets
             if (GUI.Button(new Rect(clearButtonPos.x, clearButtonPos.y, buttonWidth, buttonHeight), clearButtonTexture))
             {
                 Debug.Log("Clear button clicked");
+                gameController.ClearPie();
             }
 
             if (GUI.Button(new Rect(bakeButtonPos.x, bakeButtonPos.y, buttonWidth, buttonHeight), bakeButtonTexture))
