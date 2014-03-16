@@ -20,6 +20,8 @@ public class Pie : MonoBehaviour {
 	void Start ()
     {
         initialize(true);
+        minRange = Screen.width / 4f;
+        maxRange = Screen.height / 3f;
 	}
 
     public void initialize(bool difficulty)
