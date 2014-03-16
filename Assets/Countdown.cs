@@ -39,6 +39,11 @@ public class Countdown : MonoBehaviour {
     {
         currentTime = 0;
     }
+
+    public float GetScore()
+    {
+        return (float) ((timeoutTime - currentTime) * 1.3); // some number
+    }
 	
 	// Update is called once per frame
 	void Update () 

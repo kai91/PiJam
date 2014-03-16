@@ -64,6 +64,7 @@ public class GameController : MonoBehaviour {
         isBaking = false;
         doneBaking = true;
         pie.GetComponent<Pie>().doneBaking();
+        //float score = timer.GetComponent<Countdown>().GetScore();
     }
 
     public void GameOver()

@@ -9,7 +9,7 @@ namespace Assets
     public class ProgressBar : MonoBehaviour
     {
         private const float DefaultPassiveSpeed = 0.01f;
-        private const float DefaultActiveSpeed = 0.005f;
+        private const float DefaultActiveSpeed = 0.008f;
         private float passiveSpeed;
         private float activeSpeed;
         public float progressPercentage;

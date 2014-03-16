@@ -12,7 +12,7 @@ namespace Assets
         private const float ButtonHeightPercentage = 0.075f;
         private readonly Vector2 ClearButtonPosPercentage = new Vector2(0.1f, 0.9f);
         private readonly Vector2 BakeButtonPosPercentage = new Vector2(0.55f, 0.9f);
-        private readonly Vector2 RetryButtonPosPercentage = new Vector2(0.55f, 0.4f);   // beside the emoticon and under the message that is beside the emoticon
+        private readonly Vector2 RetryButtonPosPercentage = new Vector2(0.55f, 0.9f);   // retry and keeptrying button are at the same spot as bake button
         private Texture2D clearButtonTexture;
         private Texture2D bakeButtonTexture;
         private Texture2D retryButtonTexture;
